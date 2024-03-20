@@ -1,0 +1,16 @@
+{% load static %}
+<header>
+    <img src="{% static 'restaurant/img/logo.png' %}" />
+</header>
+<nav>
+    <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'menu' %}">Menu</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+
+        <li><a href="{% url 'bookings' %}">Reservations</a></li>
+        <form method="POST" action="{% url 'logout' %}">
+            <li><button type="submit">Logout</button></li>
+        </form>
+    </ul>
+</nav>

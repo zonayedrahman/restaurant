@@ -1,0 +1,52 @@
+{% extends 'restaurant/base.html' %} {% block content %}
+<h1>LOGIN</h1>
+
+<form id="LoginForm">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit" id="LoginFormSubmit">Login</button>
+
+    <script>
+        document
+            .getElementById("LoginForm")
+            .addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent form submission
+
+                // Get form data
+                var formData = new FormData(event.target);
+
+                // Convert form data to JSON
+                var jsonData = {};
+                formData.forEach(function (value, key) {
+                    jsonData[key] = value;
+                });
+
+                console.log(jsonData);
+
+                // Send API call to /api/user/login
+                fetch("/api/users/login/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(jsonData),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Handle API response
+                        console.log(data);
+
+                        document.cookie = `client=${data["jwt"]}`;
+                        // Add your code here to handle the response
+
+                        // Redirect to home page
+                        window.location.href = "/menu";
+                    })
+                    .catch((error) => {
+                        // Handle error
+                        console.error(error);
+                    });
+            });
+    </script>
+
+    {% endblock %}
+</form>

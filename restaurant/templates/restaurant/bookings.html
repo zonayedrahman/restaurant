@@ -1,0 +1,8 @@
+{% extends 'restaurant/base.html' %} {% block content %}
+<h1>BOOKINGS</h1>
+
+{% for booking in bookings %}
+<p>{{ booking.name }}</p>
+<p>{{ booking.no_of_guests}}</p>
+<p>{{ booking.booking_date }}</p>
+{% endfor %} {% endblock %}
